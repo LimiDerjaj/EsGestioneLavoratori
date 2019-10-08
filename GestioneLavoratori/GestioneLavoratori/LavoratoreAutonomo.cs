@@ -28,7 +28,7 @@ namespace GestioneLavoratori
             int risultato;
             if(Ral<50000)
             {
-                risultato = Ral;
+                risultato = 0;
             }
             else
             {

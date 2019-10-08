@@ -40,29 +40,24 @@ namespace GestioneLavoratori
             int risultato;
             if (Ral <= 6000)
             {
-                Console.WriteLine("Esente da tasse: ");
-                risultato = Ral;
+                risultato = 0;
             }
             else
             if(Ral<=15000)
             {
-                Console.WriteLine("Tassa 15%: ");
                 risultato = (Ral * 15) / 100;
             }
             else
             if(Ral<=25000)
             {
-                Console.WriteLine("Tassa 30%: ");
                 risultato = (Ral * 30) / 100;
             }
             else
             if (Ral <= 35000)
             {
-                Console.WriteLine("Tassa 40%: ");
                 risultato = (Ral * 40) / 100;
             }
             else
-            Console.WriteLine("Tassa 50%: ");
             risultato = (Ral * 50) / 100;
             return risultato;
         }
