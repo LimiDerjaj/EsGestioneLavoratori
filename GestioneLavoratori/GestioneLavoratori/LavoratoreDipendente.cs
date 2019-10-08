@@ -8,45 +8,64 @@ namespace GestioneLavoratori
 {
     class LavoratoreDipendente : Lavoratore //CLASSE STUDENTE EREDITA DA CLASSE PERSONA PARAMETRI E METODI
     {
-       // public string Nome { get; set; }
-      //  public string Cognome { get; set; }
-      //  public int Età { get; set; }
-        //public Sesso Genere { get; set; }
-       // public double Ral { get; set; }
         //EREDITA I PARAMETRI DI PERSONA E SI POSSONO AGGIUNGERE ALTRI PARAMETRI DICHIARANDOLI (VALGONO SOLO SU STUDENTI)
-
         public int AnnoAssunzione { get; set; }
 
 
         //base permette di fare il riferimento alla classe padre (LAVORATORE)
-        public LavoratoreDipendente(string nome, string cognome, int età,int ral) : base(nome, cognome, età, ral)
+        public LavoratoreDipendente(string nome, string cognome, int età,int ral, int annoAssunzione) : base(nome, cognome, età, ral)
         {
-            AnnoAssunzione = 2012;
+            AnnoAssunzione = annoAssunzione;
         }
 
         public LavoratoreDipendente()
         {
         }
-
-        public LavoratoreDipendente(string nome, string cognome, int annoAssunzione)//costruttore più snello 
-        {
-            //proprietà che posso calcolarmi le calcolo direttamente nel costruttore
-            {
-                //proprietà che posso calcolarmi le calcolo direttamente nel costruttore
-                AnnoAssunzione = AnnoAssunzione;
-
-                //var annoAttuale = DateTime.Now.Year; //calcolare l'età nel costruttore
-                //var annoAssunzione = annoAssunzione.Year;//per avere un costruttore più snello
-                int anzianitò = DateTime.Now.Year - annoAssunzione;
-            }
-
-        
-    }
-        public int CalcolaAnzianità()
+      
+         //METODO CALCOLA ANZIANITA DATE NOW-DATA ASSUNZIONE
+         public int CalcolaAnzianità()
         {
             return DateTime.Now.Year - AnnoAssunzione;
         }
+        //Metodo getDettaglioLavoratore per DIPENDENTI (PRENDE DA LAVORATORE BASE E AGGIUNGE ANZIANITA)
+        public override string GetDettaglioLavoratore()
+        {
+            return base.GetDettaglioLavoratore()
+                +"Anni anzianità: "+ CalcolaAnzianità() + Environment.NewLine
+                +"Tassa: "+ CalcoloTassa() + "$"+ Environment.NewLine;
+        }
 
-        //METODO CALCOLA ANZIANITA DATE NOW-DATA ASSUNZIONE
+        public override int CalcoloTassa()
+        {
+            int risultato;
+            if (Ral <= 6000)
+            {
+                Console.WriteLine("Esente da tasse: ");
+                risultato = Ral;
+            }
+            else
+            if(Ral<=15000)
+            {
+                Console.WriteLine("Tassa 15%: ");
+                risultato = (Ral * 15) / 100;
+            }
+            else
+            if(Ral<=25000)
+            {
+                Console.WriteLine("Tassa 30%: ");
+                risultato = (Ral * 30) / 100;
+            }
+            else
+            if (Ral <= 35000)
+            {
+                Console.WriteLine("Tassa 40%: ");
+                risultato = (Ral * 40) / 100;
+            }
+            else
+            Console.WriteLine("Tassa 50%: ");
+            risultato = (Ral * 50) / 100;
+            return risultato;
+        }
+
     }
 }

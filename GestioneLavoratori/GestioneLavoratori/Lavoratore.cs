@@ -12,7 +12,7 @@ namespace GestioneLavoratori
         M = 1,
         F = 2,
     }*/
-    class Lavoratore
+    abstract class Lavoratore
     {
         public string Nome { get; set; }
         public string Cognome { get; set; }
@@ -34,35 +34,25 @@ namespace GestioneLavoratori
             Ral = ral;
         }
 
-        //3 costruttore
-        /*
-        public Lavoratore(string nome, string cognome, DateTime datanascita)//costruttore più snello 
-        {
-            //proprietà che posso calcolarmi le calcolo direttamente nel costruttore
-            Nome = nome;
-            Cognome = cognome;
-
-            var annoAttuale = DateTime.Now.Year; //calcolare l'età nel costruttore
-            var annoAnnoNascita = datanascita.Year;//per avere un costruttore più snello
-            Età = annoAttuale - annoAnnoNascita;
-        }*/
-
-        public Lavoratore(string nome, string cognome)//COSTRUTTORE UTILIZZATO SULLA CLASSE STUDENTE
-        {
-            Nome = nome;
-            Cognome = cognome;
-        }
-
         public virtual string GetDettaglioLavoratore()//static main vede solo metodi statici della stessa classe                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
         {
             string result;
             result =
                   System.Environment.NewLine
-                + this.Nome + System.Environment.NewLine //PER ANDARE A CAPO
-                + this.Cognome + System.Environment.NewLine
-                + this.Età + System.Environment.NewLine
-                + this.Ral + System.Environment.NewLine;
+                +"Nome: "+ this.Nome + System.Environment.NewLine //PER ANDARE A CAPO
+                +"Cognome: "+ this.Cognome + System.Environment.NewLine
+                +"Età: "+ this.Età + System.Environment.NewLine
+                +"RAL: "+ this.Ral + "$"+System.Environment.NewLine
+                + "Stipendio mensile: " + StipendioMensile() + "$"+System.Environment.NewLine;
             return result;
         }
+
+        public virtual int StipendioMensile()
+        {
+            return this.Ral / 12;
+        }
+
+        public abstract int CalcoloTassa();
+        
     }
 }
