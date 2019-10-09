@@ -21,6 +21,8 @@ namespace GestioneLavoratori
             for (int i = 0; i < 3; i++)
             {
                 lavoratoriDipendenti[i] = new LavoratoreDipendente();
+                Lavoratore lv[i] = new Lavoratore();
+
 
                 Console.WriteLine("Inserisci nome lavoratore dipendente" + (i + 1) + ": ");
                 string nomeLD = Console.ReadLine();
@@ -42,9 +44,20 @@ namespace GestioneLavoratori
                 int annoAssunzioneLD = Int32.Parse(Console.ReadLine());
                 lavoratoriDipendenti[i].AnnoAssunzione = annoAssunzioneLD;
                 Console.WriteLine(System.Environment.NewLine);
-            }
 
-            
+                foreach(var lavoratore in lavoratoriDipendenti)
+                {
+                    //creo una variabile temporanea dove inserisco i valori al posto di inserirli in lavoratoriDipendenti
+                    //dopo ogni inserimento readLine, poi nel foreach faccio il controllo se il lavoratore temporaneo
+                    //è uguale a var lavoratore(prende ogni singolo oggette dell array lavoratoriDipendenti) prima posso
+                    //creare una variabile bool ris settato a false, dopo il foreach se sono diversi li inserisco nel
+                    //vettore altrimenti la bool diventa vera(o viceversa) non inserisce e da errore
+                }
+              
+            }
+            Console.WriteLine("I due oggetti lav1 e lav2 sono uguali? {0}", lavoratoriDipendenti[0].Equals(lavoratoriDipendenti[1]));
+
+
             //CICLO INSERIMENTO LAVORATORI AUTONOMI
             for (int i = 0; i < 3; i++)
             {
@@ -68,49 +81,46 @@ namespace GestioneLavoratori
                 Console.WriteLine(System.Environment.NewLine);
             }
 
-            
-            
             Console.WriteLine("Scegli ordinamento lavoratori:" + System.Environment.NewLine + System.Environment.NewLine
                              + "Per Stipendio = 1 + INVIO" + System.Environment.NewLine
                              + "PerAnzianità = 2 + INVIO" + System.Environment.NewLine
                              + "Premi qualsiasi tasto + INVIO per visualizzarli normalmente");
             string x = Console.ReadLine();
 
-
-
-
             //CONTROLLO ORDINAMENTI
-            if(x=="1")
+        if(x=="1")
             {
                 Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER STIPENDIO" + System.Environment.NewLine +
                               "-----------------------" + System.Environment.NewLine);
+                
+                
                 //ORDINAMENTO PER STIPENDIO
-                LavoratoreDipendente[] sortedDipendenti = lavoratoriDipendenti.OrderBy
+                LavoratoreDipendente[] dipendentiOrdinati = lavoratoriDipendenti.OrderBy
                 (lavDipendenti => lavDipendenti.StipendioMensile()).ToArray();
 
-            LavoratoreAutonomo[] sortedAutonomi = lavoratoriAutonomi.OrderBy
+            LavoratoreAutonomo[] autonomiOrdinati = lavoratoriAutonomi.OrderBy
                 (lavAutonomi => lavAutonomi.StipendioMensile()).ToArray();
             
             for (int i = 0; i < 3; i++)
             {
                 Console.WriteLine(System.Environment.NewLine + "Lavoratori dipendenti ordinati per stipendio:"
-                    + sortedDipendenti[i].GetDettaglioLavoratore());
+                    + dipendentiOrdinati[i].GetDettaglioLavoratore());
             }
             
             for (int i = 0; i < 3; i++)
             {
                  Console.WriteLine(System.Environment.NewLine + "Lavoratori autonomi ordinati per stipendio: "
-                     + (i + 1) + ": " + sortedAutonomi[i].GetDettaglioLavoratore());
+                     + (i + 1) + ": " + autonomiOrdinati[i].GetDettaglioLavoratore());
             }
-            }
+        }
 
-            if (x == "2")
-            {
+        if (x == "2")
+        {
                 Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER ANZIANITA'" + System.Environment.NewLine +
                               "-----------------------" + System.Environment.NewLine);
 
                 //ORDINAMENTO PER ANZIANITA'
-                LavoratoreDipendente[] sortedDipendenti = lavoratoriDipendenti.OrderBy
+                LavoratoreDipendente[] dipendentiOrdinati = lavoratoriDipendenti.OrderBy
                     (lavDipendenti => lavDipendenti.CalcolaAnzianità()).ToArray();
 
                 //LavoratoreAutonomo[] sortedAutonomi = lavoratoriAutonomi.OrderBy
@@ -119,17 +129,18 @@ namespace GestioneLavoratori
                 for (int i = 0; i < 3; i++)
                 {
                     Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore dipendente "
-                        + (i + 1) + ": " + sortedDipendenti[i].GetDettaglioLavoratore());
+                        + (i + 1) + ": " + dipendentiOrdinati[i].GetDettaglioLavoratore());
                 }
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++) //lavoratori autonomi non viene ordinato perchè non ha l'anzianità
                 {
                     Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore autonomo "
                         + (i + 1) + ": " + lavoratoriAutonomi[i].GetDettaglioLavoratore());
                 }
-            }
-            else
-            {
+         }
+
+         else
+         {
                 Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER INSERIMENTO" + System.Environment.NewLine +
                               "-----------------------" + System.Environment.NewLine);
                 for (int i = 0; i < 3; i++)
@@ -143,17 +154,7 @@ namespace GestioneLavoratori
                     Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore autonomo "
                         + (i + 1) + ": " + lavoratoriAutonomi[i].GetDettaglioLavoratore());
                 }
-            }
-
-
-            /*for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore autonomo "
-                    + (i + 1) + ": " + lavoratoriAutonomi[i].GetDettaglioLavoratore());
-                Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore dipendente "
-                    + (i + 1) + ": " + lavoratoriDipendenti[i].GetDettaglioLavoratore());               
-            }*/
-
+         }
             Console.ReadLine();
         }
     }

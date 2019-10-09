@@ -61,6 +61,5 @@ namespace GestioneLavoratori
             risultato = (Ral * 50) / 100;
             return risultato;
         }
-
     }
 }

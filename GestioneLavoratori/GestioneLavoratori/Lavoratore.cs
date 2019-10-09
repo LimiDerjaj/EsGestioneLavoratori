@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace GestioneLavoratori
 {
-   /* enum Sesso  //ENUM SOLO VALORI NUMERICI CREA UN TIPO PER UNA VARIABILE CHE PUO CONTENERE SOLO QUESTI VALORI
+    //abstract
+     class Lavoratore
     {
-        N = 0,
-        M = 1,
-        F = 2,
-    }*/
-    abstract class Lavoratore
-    {
+        private Lavoratore[] lavoratore = new Lavoratore[3];
+        //devo creare l'oggetto con i valori passati per input, controllare se è uguale(decido io i campi per cui è
+        //uguale) con l'override di equals, se è uguale uguale non lo inserisco, crearlo sulla classe padre
+        //lavoratori funziona sia per dipendenti che per autonomi
+
+            //foreach var lav in lavoratore if lavoratore.equals(lavoratore)
+        public int Length
+        {
+            get
+            {
+                return lavoratore.Length;
+            }
+        }
+
+
         public string Nome { get; set; }
         public string Cognome { get; set; }
         public int Età { get; set; }
@@ -34,6 +44,19 @@ namespace GestioneLavoratori
             Ral = ral;
         }
 
+        public override bool Equals(object obj)
+        {
+            bool result = false;
+            Lavoratore temp = obj as Lavoratore;//converte obj in ChiaveValore se non ci riesce
+                                                    //(strutture diverse) non da errore ma temp = null
+
+            if (temp != null)
+            {
+                result = temp.Nome == this.Nome && temp.Cognome == this.Cognome && temp.Età == this.Età;
+            }
+            return result;
+        }
+
         public virtual string GetDettaglioLavoratore()//static main vede solo metodi statici della stessa classe                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
         {
             string result;
@@ -46,6 +69,7 @@ namespace GestioneLavoratori
                 + "Stipendio mensile: " + StipendioMensile() + "$"+System.Environment.NewLine;
             return result;
         }
+
 
         public virtual int StipendioMensile()
         {
