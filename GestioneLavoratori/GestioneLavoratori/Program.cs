@@ -70,8 +70,7 @@ namespace GestioneLavoratori
 
             
             
-
-            Console.WriteLine("Scegli ordinamento lavoratori:" + System.Environment.NewLine
+            Console.WriteLine("Scegli ordinamento lavoratori:" + System.Environment.NewLine + System.Environment.NewLine
                              + "Per Stipendio = 1 + INVIO" + System.Environment.NewLine
                              + "PerAnzianità = 2 + INVIO" + System.Environment.NewLine
                              + "Premi qualsiasi tasto + INVIO per visualizzarli normalmente");
@@ -82,9 +81,11 @@ namespace GestioneLavoratori
 
             //CONTROLLO ORDINAMENTI
             if(x=="1")
-            { 
-            //ORDINAMENTO PER STIPENDIO
-            LavoratoreDipendente[] sortedDipendenti = lavoratoriDipendenti.OrderBy
+            {
+                Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER STIPENDIO" + System.Environment.NewLine +
+                              "-----------------------" + System.Environment.NewLine);
+                //ORDINAMENTO PER STIPENDIO
+                LavoratoreDipendente[] sortedDipendenti = lavoratoriDipendenti.OrderBy
                 (lavDipendenti => lavDipendenti.StipendioMensile()).ToArray();
 
             LavoratoreAutonomo[] sortedAutonomi = lavoratoriAutonomi.OrderBy
@@ -105,6 +106,9 @@ namespace GestioneLavoratori
 
             if (x == "2")
             {
+                Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER ANZIANITA'" + System.Environment.NewLine +
+                              "-----------------------" + System.Environment.NewLine);
+
                 //ORDINAMENTO PER ANZIANITA'
                 LavoratoreDipendente[] sortedDipendenti = lavoratoriDipendenti.OrderBy
                     (lavDipendenti => lavDipendenti.CalcolaAnzianità()).ToArray();
@@ -126,6 +130,8 @@ namespace GestioneLavoratori
             }
             else
             {
+                Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER INSERIMENTO" + System.Environment.NewLine +
+                              "-----------------------" + System.Environment.NewLine);
                 for (int i = 0; i < 3; i++)
                 {
                     Console.WriteLine(System.Environment.NewLine + "Dettagli lavoratore dipendente "
