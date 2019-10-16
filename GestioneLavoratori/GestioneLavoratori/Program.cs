@@ -20,40 +20,63 @@ namespace GestioneLavoratori
             //CICLO INSERIMENTO LAVORATORI DIPENDENTI
             for (int i = 0; i < 3; i++)
             {
-                lavoratoriDipendenti[i] = new LavoratoreDipendente();
-                Lavoratore lv[i] = new Lavoratore();
+                //con la nuova logica non servirà inizializzare ogni volta l'oggetto all'interno dell'array
+                //lavoratoriDipendenti[i] = new LavoratoreDipendente();
 
+                //mi creo un oggetto LavoratoreDipendente (attenzione, non un array) in cui salvare l'input dell'utente
+                LavoratoreDipendente lv = new LavoratoreDipendente();
 
+                //assegno i singoli valori alle proprietà del mio oggetto lv (sostituisco lavoratoriDipendenti[i] con lv)
                 Console.WriteLine("Inserisci nome lavoratore dipendente" + (i + 1) + ": ");
                 string nomeLD = Console.ReadLine();
-                lavoratoriDipendenti[i].Nome = nomeLD;
+                lv.Nome = nomeLD;
 
                 Console.WriteLine("Inserisci cognome lavoratore dipendente " + (i + 1) + ": ");
                 string cognomeLD = Console.ReadLine();
-                lavoratoriDipendenti[i].Cognome = cognomeLD;
+                lv.Cognome = cognomeLD;
 
                 Console.WriteLine("Inserisci età lavoratore dipendente " + (i + 1) + ": ");
                 int etàLD = Int32.Parse(Console.ReadLine());
-                lavoratoriDipendenti[i].Età = etàLD;
+                lv.Età = etàLD;
 
                 Console.WriteLine("Inserisci RAL lavoratore dipendente " + (i + 1) + ": ");
                 int ralLD = Int32.Parse(Console.ReadLine());
-                lavoratoriDipendenti[i].Ral = ralLD;
+                lv.Ral = ralLD;
 
                 Console.WriteLine("Inserisci anno assunzione lavoratore dipendente " + (i + 1) + ": ");
                 int annoAssunzioneLD = Int32.Parse(Console.ReadLine());
-                lavoratoriDipendenti[i].AnnoAssunzione = annoAssunzioneLD;
+                lv.AnnoAssunzione = annoAssunzioneLD;
                 Console.WriteLine(System.Environment.NewLine);
 
-                foreach(var lavoratore in lavoratoriDipendenti)
+                bool exists = false; //variabile bool di controllo
+                foreach (var lavoratore in lavoratoriDipendenti)
                 {
                     //creo una variabile temporanea dove inserisco i valori al posto di inserirli in lavoratoriDipendenti
                     //dopo ogni inserimento readLine, poi nel foreach faccio il controllo se il lavoratore temporaneo
                     //è uguale a var lavoratore(prende ogni singolo oggette dell array lavoratoriDipendenti) prima posso
                     //creare una variabile bool ris settato a false, dopo il foreach se sono diversi li inserisco nel
                     //vettore altrimenti la bool diventa vera(o viceversa) non inserisce e da errore
+                    if (lv.Equals(lavoratore)) // in questa riga verifico se il mio oggetto "lv" inserito dall'utente sia uguale all'oggetto "lavoratore"
+                    {
+                        exists = true; //imposto la mia variabile di controllo a true
+                        break; //interrompo il ciclo, ho già trovato che l'elemento esiste già, non serve che "perdo tempo" facendogli finire il ciclo
+                    }
                 }
-              
+
+                if (exists)
+                {
+                    /*
+                     * Aggiungere logica che magari chiede di inserire un altro lavoratore dato che quello inserito esiste già.
+                     * Suggerimento: per farlo in maniera elegante e funzionale, si potrebbe creare un metodo privato "CreateLavoratoreDip" che potrebbe occuparsi di chiedere all'utente tutte le info
+                     * Bisognerebbe modificare un po' la struttura del main in modo che chieda i dettagli di un nuovo lavoratore finché non ne sono stati aggiunti 3 o il numero che preferisci (suggerimento: si può usare un ciclo do-while)
+                    */
+                }
+                else
+                {
+                    lavoratoriDipendenti[i] = lv; //associo il mio lv alla posizione i-esima dell'array. NB: è un problema che sia reference type?
+                }
+
+
             }
             Console.WriteLine("I due oggetti lav1 e lav2 sono uguali? {0}", lavoratoriDipendenti[0].Equals(lavoratoriDipendenti[1]));
 
