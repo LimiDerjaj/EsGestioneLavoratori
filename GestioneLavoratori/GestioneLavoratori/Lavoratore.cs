@@ -29,7 +29,13 @@ namespace GestioneLavoratori
         {
         }
 
-        //2 costruttore
+        /// <summary>
+        /// metodo costruttore lavoratore padre
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cognome"></param>
+        /// <param name="età"></param>
+        /// <param name="ral"></param>
         public Lavoratore(string nome, string cognome, int età, int ral)//assegnare ai valori 
                                                                                                 //della proprietà i valori che gli passiamo
         {
@@ -39,6 +45,11 @@ namespace GestioneLavoratori
             Ral = ral;
         }
 
+        /// <summary>
+        /// override del metodo equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns> bool type</returns>
         public override bool Equals(object obj)
         {
             bool result = false;
@@ -50,6 +61,7 @@ namespace GestioneLavoratori
             }
             return result;
         }
+
 
         public virtual string GetDettaglioLavoratore()//static main vede solo metodi statici della stessa classe                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
         {
