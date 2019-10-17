@@ -38,3 +38,9 @@ namespace GestioneLavoratori
         }
     }
 }
+
+
+/* Aggiungere logica che magari chiede di inserire un altro lavoratore dato che quello inserito esiste già.
+ * Suggerimento: per farlo in maniera elegante e funzionale, si potrebbe creare un metodo privato "CreateLavoratoreDip" che potrebbe occuparsi di chiedere all'utente tutte le info
+ * Bisognerebbe modificare un po' la struttura del main in modo che chieda i dettagli di un nuovo lavoratore finché non ne sono stati aggiunti 3 o il numero che preferisci (suggerimento: si può usare un ciclo do-while)
+*/

@@ -10,11 +10,7 @@ namespace GestioneLavoratori
      class Lavoratore
     {
         private Lavoratore[] lavoratore = new Lavoratore[3];
-        //devo creare l'oggetto con i valori passati per input, controllare se è uguale(decido io i campi per cui è
-        //uguale) con l'override di equals, se è uguale uguale non lo inserisco, crearlo sulla classe padre
-        //lavoratori funziona sia per dipendenti che per autonomi
 
-            //foreach var lav in lavoratore if lavoratore.equals(lavoratore)
         public int Length
         {
             get
@@ -27,8 +23,7 @@ namespace GestioneLavoratori
         public string Nome { get; set; }
         public string Cognome { get; set; }
         public int Età { get; set; }
-        public int Ral { get; set; }
-        //public Sesso Genere { get; set; }        
+        public int Ral { get; set; }     
 
         public Lavoratore() //costruttore di default se non ne è presente nessuno, se ne è presente uno bisogna aggiungerlo
         {
@@ -47,8 +42,7 @@ namespace GestioneLavoratori
         public override bool Equals(object obj)
         {
             bool result = false;
-            Lavoratore temp = obj as Lavoratore;//converte obj in ChiaveValore se non ci riesce
-                                                    //(strutture diverse) non da errore ma temp = null
+            Lavoratore temp = obj as Lavoratore;
 
             if (temp != null)
             {
@@ -76,7 +70,11 @@ namespace GestioneLavoratori
             return this.Ral / 12;
         }
 
-        public abstract int CalcoloTassa();
+        public virtual int CalcoloTassa() {
+            int risultato;
+            risultato = 0;
+            return risultato;
+        }
         
     }
 }

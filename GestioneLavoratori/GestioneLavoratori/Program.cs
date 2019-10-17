@@ -10,53 +10,167 @@ namespace GestioneLavoratori
     {
         static void Main(string[] args)
         {
+            bool controllo = false;//variabile bool controllo inserimento informazioni lavoratore
+            bool exists = true; //variabile bool di controllo inserimento lavoratore
             //creazione array di tipo LavoratoreDipendente
             LavoratoreDipendente[] lavoratoriDipendenti = new LavoratoreDipendente[3];
             LavoratoreAutonomo[] lavoratoriAutonomi = new LavoratoreAutonomo[3];
 
             Console.WriteLine("INSERMINETO LAVORATORI" + System.Environment.NewLine +
-                              "-----------------------" + System.Environment.NewLine);
+                              "-----------R1Q17------------" + System.Environment.NewLine);
 
             //CICLO INSERIMENTO LAVORATORI DIPENDENTI
             for (int i = 0; i < 3; i++)
             {
-                //con la nuova logica non servirà inizializzare ogni volta l'oggetto all'interno dell'array
-                //lavoratoriDipendenti[i] = new LavoratoreDipendente();
-
-                //mi creo un oggetto LavoratoreDipendente (attenzione, non un array) in cui salvare l'input dell'utente
-                LavoratoreDipendente lv = new LavoratoreDipendente();
-
-                //assegno i singoli valori alle proprietà del mio oggetto lv (sostituisco lavoratoriDipendenti[i] con lv)
-                Console.WriteLine("Inserisci nome lavoratore dipendente" + (i + 1) + ": ");
-                string nomeLD = Console.ReadLine();
-                lv.Nome = nomeLD;
-
-                Console.WriteLine("Inserisci cognome lavoratore dipendente " + (i + 1) + ": ");
-                string cognomeLD = Console.ReadLine();
-                lv.Cognome = cognomeLD;
-
-                Console.WriteLine("Inserisci età lavoratore dipendente " + (i + 1) + ": ");
-                int etàLD = Int32.Parse(Console.ReadLine());
-                lv.Età = etàLD;
-
-                Console.WriteLine("Inserisci RAL lavoratore dipendente " + (i + 1) + ": ");
-                int ralLD = Int32.Parse(Console.ReadLine());
-                lv.Ral = ralLD;
-
-                Console.WriteLine("Inserisci anno assunzione lavoratore dipendente " + (i + 1) + ": ");
-                int annoAssunzioneLD = Int32.Parse(Console.ReadLine());
-                lv.AnnoAssunzione = annoAssunzioneLD;
-                Console.WriteLine(System.Environment.NewLine);
-
-                bool exists = false; //variabile bool di controllo
-                foreach (var lavoratore in lavoratoriDipendenti)
+                exists = false;
+                do
                 {
-                    //creo una variabile temporanea dove inserisco i valori al posto di inserirli in lavoratoriDipendenti
-                    //dopo ogni inserimento readLine, poi nel foreach faccio il controllo se il lavoratore temporaneo
-                    //è uguale a var lavoratore(prende ogni singolo oggette dell array lavoratoriDipendenti) prima posso
-                    //creare una variabile bool ris settato a false, dopo il foreach se sono diversi li inserisco nel
-                    //vettore altrimenti la bool diventa vera(o viceversa) non inserisce e da errore
-                    if (lv.Equals(lavoratore)) // in questa riga verifico se il mio oggetto "lv" inserito dall'utente sia uguale all'oggetto "lavoratore"
+                    //con la nuova logica non servirà inizializzare ogni volta l'oggetto all'interno dell'array
+
+                    //mi creo un oggetto LavoratoreDipendente (attenzione, non un array) in cui salvare l'input dell'utente
+                    LavoratoreDipendente lvD = new LavoratoreDipendente();
+
+                    //assegno i singoli valori alle proprietà del mio oggetto lv (sostituisco lavoratoriDipendenti[i] con lv)
+                    Console.WriteLine("Inserisci nome lavoratore dipendente" + (i + 1) + ": ");
+                    string nomeLD = Console.ReadLine();
+                    lvD.Nome = nomeLD;
+
+                    Console.WriteLine("Inserisci cognome lavoratore dipendente " + (i + 1) + ": ");
+                    string cognomeLD = Console.ReadLine();
+                    lvD.Cognome = cognomeLD;
+
+                    controllo = false;
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("Inserisci età lavoratore dipendente " + (i + 1) + ": ");
+                            int etàLD = Int32.Parse(Console.ReadLine());
+                            lvD.Età = etàLD;
+                            controllo = true;
+                        }
+                        catch (FormatException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            Console.WriteLine("Riprova: ");
+                            controllo = false;
+                        }
+                    } while (controllo == false);
+
+                    controllo = false;
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("Inserisci RAL lavoratore dipendente " + (i + 1) + ": ");
+                            int ralLD = Int32.Parse(Console.ReadLine());
+                            lvD.Ral = ralLD;
+                            controllo = true;
+                        }
+
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Riprova: ");
+                            Console.WriteLine(ex.Message);
+                        }
+                    } while (controllo == false);
+
+                    controllo = false;
+                    do
+                    {
+                        try
+                        {
+                            Console.WriteLine("Inserisci anno assunzione lavoratore dipendente " + (i + 1) + ": ");
+                            int annoAssunzioneLD = Int32.Parse(Console.ReadLine());
+                            lvD.AnnoAssunzione = annoAssunzioneLD;
+                            controllo = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Riprova: ");
+                            Console.WriteLine(ex.Message);
+                        }
+                    } while (controllo == false);
+                    Console.WriteLine(System.Environment.NewLine);
+
+
+                    foreach (var lavoratore in lavoratoriDipendenti)
+                    {
+                        exists = true;
+                        if (lvD.Equals(lavoratore)) // in questa riga verifico se il mio oggetto "lvD" inserito dall'utente sia uguale all'oggetto "lavoratore"
+                        {
+                            Console.WriteLine("lavoratore già inserito, RIPETI INSERIMENTO" + System.Environment.NewLine);              
+                            break; //interrompo il ciclo, ho già trovato che l'elemento esiste già, non serve che "perdo tempo" facendogli finire il ciclo
+                        }
+                        else
+                        {
+                            exists = false;                          
+                        }
+                    }
+
+                    if(exists==false)
+                    {
+                            lavoratoriDipendenti[i] = lvD;
+                            //associo il mio lv alla posizione i-esima dell'array. NB: è un problema che sia reference type?
+                            Console.WriteLine("lavoratore inserito correttamente" + System.Environment.NewLine);
+                    }
+
+                } while (exists == true);
+            }
+          
+            //CICLO INSERIMENTO LAVORATORI AUTONOMI
+            for (int i = 0; i < 3; i++)
+            {
+                LavoratoreAutonomo lvA = new LavoratoreAutonomo();
+
+                Console.WriteLine("Inserisci nome lavoratore autonomo" + (i + 1) + ": ");
+                string nomeLA = Console.ReadLine();
+                lvA.Nome = nomeLA;
+
+                Console.WriteLine("Inserisci cognome lavoratore autonomo " + (i + 1) + ": ");
+                string cognomeLA = Console.ReadLine();
+                lvA.Cognome = cognomeLA;
+
+                controllo = false;
+                do
+                {
+                    try
+                    {
+                        Console.WriteLine("Inserisci età lavoratore autonomo " + (i + 1) + ": ");
+                        int etàLA = Int32.Parse(Console.ReadLine());
+                        lvA.Età = etàLA;
+                        controllo = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Riprova: ");
+                        Console.WriteLine(ex.Message);
+                    }
+                } while (controllo == false);
+
+
+                controllo = false;
+                do { 
+                    try
+                    {
+                        Console.WriteLine("Inserisci RAL lavoratore autonomo " + (i + 1) + ": ");
+                        int ralLA = Int32.Parse(Console.ReadLine());
+                        lvA.Ral = ralLA;
+                        Console.WriteLine(System.Environment.NewLine);
+                        controllo = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Riprova: ");
+                        Console.WriteLine(ex.Message);
+                    }
+                } while (controllo == false);
+
+
+               
+                foreach (var lavoratore in lavoratoriAutonomi)
+                {
+                    if (lvA.Equals(lavoratore)) // in questa riga verifico se il mio oggetto "lvD" inserito dall'utente sia uguale all'oggetto "lavoratore"
                     {
                         exists = true; //imposto la mia variabile di controllo a true
                         break; //interrompo il ciclo, ho già trovato che l'elemento esiste già, non serve che "perdo tempo" facendogli finire il ciclo
@@ -65,43 +179,18 @@ namespace GestioneLavoratori
 
                 if (exists)
                 {
-                    /*
-                     * Aggiungere logica che magari chiede di inserire un altro lavoratore dato che quello inserito esiste già.
+                    Console.WriteLine("lavoratore già inserito" + System.Environment.NewLine);
+                    /* Aggiungere logica che magari chiede di inserire un altro lavoratore dato che quello inserito esiste già.
                      * Suggerimento: per farlo in maniera elegante e funzionale, si potrebbe creare un metodo privato "CreateLavoratoreDip" che potrebbe occuparsi di chiedere all'utente tutte le info
                      * Bisognerebbe modificare un po' la struttura del main in modo che chieda i dettagli di un nuovo lavoratore finché non ne sono stati aggiunti 3 o il numero che preferisci (suggerimento: si può usare un ciclo do-while)
                     */
                 }
                 else
                 {
-                    lavoratoriDipendenti[i] = lv; //associo il mio lv alla posizione i-esima dell'array. NB: è un problema che sia reference type?
+                    Console.WriteLine("lavoratore inserito correttamente" + System.Environment.NewLine);
+                    lavoratoriAutonomi[i] = lvA; //associo il mio lv alla posizione i-esima dell'array. NB: è un problema che sia reference type?
                 }
 
-
-            }
-            Console.WriteLine("I due oggetti lav1 e lav2 sono uguali? {0}", lavoratoriDipendenti[0].Equals(lavoratoriDipendenti[1]));
-
-
-            //CICLO INSERIMENTO LAVORATORI AUTONOMI
-            for (int i = 0; i < 3; i++)
-            {
-                lavoratoriAutonomi[i] = new LavoratoreAutonomo();
-
-                Console.WriteLine("Inserisci nome lavoratore autonomo" + (i + 1) + ": ");
-                string nomeLA = Console.ReadLine();
-                lavoratoriAutonomi[i].Nome = nomeLA;
-
-                Console.WriteLine("Inserisci cognome lavoratore autonomo " + (i + 1) + ": ");
-                string cognomeLA = Console.ReadLine();
-                lavoratoriAutonomi[i].Cognome = cognomeLA;
-
-                Console.WriteLine("Inserisci età lavoratore autonomo " + (i + 1) + ": ");
-                int etàLA = Int32.Parse(Console.ReadLine());
-                lavoratoriAutonomi[i].Età = etàLA;
-
-                Console.WriteLine("Inserisci RAL lavoratore autonomo " + (i + 1) + ": ");
-                int ralLA = Int32.Parse(Console.ReadLine());
-                lavoratoriAutonomi[i].Ral = ralLA;
-                Console.WriteLine(System.Environment.NewLine);
             }
 
             Console.WriteLine("Scegli ordinamento lavoratori:" + System.Environment.NewLine + System.Environment.NewLine
@@ -115,8 +204,7 @@ namespace GestioneLavoratori
             {
                 Console.WriteLine(System.Environment.NewLine + "ORDINAMENTO LAVORATORI PER STIPENDIO" + System.Environment.NewLine +
                               "-----------------------" + System.Environment.NewLine);
-                
-                
+                                
                 //ORDINAMENTO PER STIPENDIO
                 LavoratoreDipendente[] dipendentiOrdinati = lavoratoriDipendenti.OrderBy
                 (lavDipendenti => lavDipendenti.StipendioMensile()).ToArray();
@@ -145,9 +233,6 @@ namespace GestioneLavoratori
                 //ORDINAMENTO PER ANZIANITA'
                 LavoratoreDipendente[] dipendentiOrdinati = lavoratoriDipendenti.OrderBy
                     (lavDipendenti => lavDipendenti.CalcolaAnzianità()).ToArray();
-
-                //LavoratoreAutonomo[] sortedAutonomi = lavoratoriAutonomi.OrderBy
-                    //(lavAutonomi => lavAutonomi.StipendioMensile()).ToArray();
 
                 for (int i = 0; i < 3; i++)
                 {
