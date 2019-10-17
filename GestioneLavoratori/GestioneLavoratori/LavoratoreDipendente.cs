@@ -12,7 +12,14 @@ namespace GestioneLavoratori
         public int AnnoAssunzione { get; set; }
 
 
-        //base permette di fare il riferimento alla classe padre (LAVORATORE)
+        /// <summary>
+        /// metodo costruttore lavoratore dipendente
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cognome"></param>
+        /// <param name="età"></param>
+        /// <param name="ral"></param>
+        /// <param name="annoAssunzione"></param>
         public LavoratoreDipendente(string nome, string cognome, int età,int ral, int annoAssunzione) : base(nome, cognome, età, ral)
         {
             AnnoAssunzione = annoAssunzione;
@@ -22,12 +29,20 @@ namespace GestioneLavoratori
         {
         }
       
-         //METODO CALCOLA ANZIANITA DATE NOW-DATA ASSUNZIONE
+         /// <summary>
+         /// Calcola anzianità lavorativa
+         /// </summary>
+         /// <returns>Int anzianità</returns>
          public int CalcolaAnzianità()
         {
             return DateTime.Now.Year - AnnoAssunzione;
         }
-        //Metodo getDettaglioLavoratore per DIPENDENTI (PRENDE DA LAVORATORE BASE E AGGIUNGE ANZIANITA)
+
+
+        /// <summary>
+        /// Informazioni lavoratore dipendente
+        /// </summary>
+        /// <returns>string con informazioni del lavoratore</returns>
         public override string GetDettaglioLavoratore()
         {
             return base.GetDettaglioLavoratore()
@@ -35,6 +50,10 @@ namespace GestioneLavoratori
                 +"Tassa: "+ CalcoloTassa() + "$"+ Environment.NewLine;
         }
 
+        /// <summary>
+        /// Calcolo tassa lavoratore dipendente
+        /// </summary>
+        /// <returns>Int tassa</returns>
         public override int CalcoloTassa()
         {
             int risultato;
