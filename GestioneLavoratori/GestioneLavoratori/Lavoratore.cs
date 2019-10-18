@@ -74,23 +74,6 @@ namespace GestioneLavoratori
             return result;
         }
 
-        /// <summary>
-        /// informazioni lavoratore
-        /// </summary>
-        /// <returns></returns>
-        public virtual string GetDettaglioLavoratore()                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
-        {
-            string result;
-            result =
-                  System.Environment.NewLine
-                +"Nome: "+ this.Nome + System.Environment.NewLine //PER ANDARE A CAPO
-                +"Cognome: "+ this.Cognome + System.Environment.NewLine
-                +"Età: "+ this.Età + System.Environment.NewLine
-                +"RAL: "+ this.Ral + "$"+System.Environment.NewLine
-                + "Stipendio mensile netto: " + StipendioMensile() + "$"+System.Environment.NewLine;
-            return result;
-        }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -114,6 +97,52 @@ namespace GestioneLavoratori
             risultato = 0;
             return risultato;
         }
-        
+
+        /// <summary>
+        /// informazioni lavoratore
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetDettaglioLavoratore()                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
+        {
+            string result;
+            result = string.Format(
+                  System.Environment.NewLine
+                + "Nome: {0:N}" + Environment.NewLine + "Cognome: {0:C}" + Environment.NewLine
+                + "Età: {0:E}" + Environment.NewLine
+                + "RAL: {0:R} $" + Environment.NewLine, this);               
+            return result;
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            var result = string.Empty;
+            if (string.IsNullOrEmpty(format))
+            {
+                result = Nome + " " + Cognome + " " + Età + " "+ Ral;//d piccolo formato data corta
+            }
+            else if (format == "N")
+            {
+                result = Nome;
+            }
+            else if (format == "C")
+            {
+                result = Cognome;
+            }
+            else if (format == "E")
+            {
+                result = Età.ToString();
+            }
+            else if (format == "R")
+            {
+                result = Ral.ToString();
+            }
+            else
+            {
+                throw new FormatException("Il formato richiesto non è previsto");
+            }
+
+            return result;
+        }
+
     }
 }

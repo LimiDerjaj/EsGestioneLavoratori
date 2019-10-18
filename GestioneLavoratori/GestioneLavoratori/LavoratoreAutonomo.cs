@@ -36,7 +36,8 @@ namespace GestioneLavoratori
         /// <returns>string informazioni</returns>
         public override string GetDettaglioLavoratore()
         {
-            return base.GetDettaglioLavoratore()+ "Tassa: " + CalcoloTassa()+"$" + Environment.NewLine;
+            return base.GetDettaglioLavoratore()+ "Tassa: " + CalcoloTassa()+"$" + Environment.NewLine+
+                "Stipendio mensile netto: " + StipendioMensile() + "$" + System.Environment.NewLine;
         }
 
         /// <summary>

@@ -53,7 +53,8 @@ namespace GestioneLavoratori
         {
             return base.GetDettaglioLavoratore()
                 +"Anni anzianità: "+ CalcolaAnzianità() + Environment.NewLine
-                +"Tassa: "+ CalcoloTassa() + "$"+ Environment.NewLine;
+                +"Tassa: "+ CalcoloTassa() + "$"+ Environment.NewLine
+                +"Stipendio mensile netto: " + StipendioMensile() + "$" + System.Environment.NewLine;
         }
 
         /// <summary>
