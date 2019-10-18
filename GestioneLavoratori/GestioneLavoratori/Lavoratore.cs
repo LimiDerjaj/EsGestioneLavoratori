@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace GestioneLavoratori
 {
-    //abstract
+    /// <summary>
+    /// classe padre Lavoratore
+    /// </summary>
      class Lavoratore
     {
         private Lavoratore[] lavoratore = new Lavoratore[3];
-
         public int Length
         {
             get
@@ -19,10 +20,21 @@ namespace GestioneLavoratori
             }
         }
 
-
+        /// <summary>
+        /// nome lavoratore inserito
+        /// </summary>
         public string Nome { get; set; }
+        /// <summary>
+        /// cognome lavoratore inserito
+        /// </summary>
         public string Cognome { get; set; }
+        /// <summary>
+        /// età lavoratore inserito
+        /// </summary>
         public int Età { get; set; }
+        /// <summary>
+        /// Ral lavoratore inserito
+        /// </summary>
         public int Ral { get; set; }     
 
         public Lavoratore() //costruttore di default se non ne è presente nessuno, se ne è presente uno bisogna aggiungerlo
@@ -46,7 +58,7 @@ namespace GestioneLavoratori
         }
 
         /// <summary>
-        /// override del metodo equals
+        /// Lavoratori uguali se hanno stesso nome, cognome ed età
         /// </summary>
         /// <param name="obj"></param>
         /// <returns> bool type</returns>
@@ -62,8 +74,11 @@ namespace GestioneLavoratori
             return result;
         }
 
-
-        public virtual string GetDettaglioLavoratore()//static main vede solo metodi statici della stessa classe                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
+        /// <summary>
+        /// informazioni lavoratore
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetDettaglioLavoratore()                                                          //pero di un altra classe anche istanziabile (istanza l'oggetto)
         {
             string result;
             result =
@@ -72,16 +87,28 @@ namespace GestioneLavoratori
                 +"Cognome: "+ this.Cognome + System.Environment.NewLine
                 +"Età: "+ this.Età + System.Environment.NewLine
                 +"RAL: "+ this.Ral + "$"+System.Environment.NewLine
-                + "Stipendio mensile: " + StipendioMensile() + "$"+System.Environment.NewLine;
+                + "Stipendio mensile netto: " + StipendioMensile() + "$"+System.Environment.NewLine;
             return result;
         }
 
-
-        public virtual int StipendioMensile()
+        public override int GetHashCode()
         {
-            return this.Ral / 12;
+            return base.GetHashCode();
         }
 
+        /// <summary>
+        /// Calcolo stipendio mensile lavoratore
+        /// </summary>
+        /// <returns></returns>
+        public virtual int StipendioMensile()
+        {
+            return this.Ral;
+        }
+
+        /// <summary>
+        /// calcolo tassa metodo base(non utilizzato, viene fatto l'override)
+        /// </summary>
+        /// <returns></returns>
         public virtual int CalcoloTassa() {
             int risultato;
             risultato = 0;

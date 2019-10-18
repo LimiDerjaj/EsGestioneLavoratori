@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace GestioneLavoratori
 {
+    /// <summary>
+    /// Classe LavoratoreDipendente che eredita da Lavoratore
+    /// </summary>
     class LavoratoreDipendente : Lavoratore //CLASSE STUDENTE EREDITA DA CLASSE PERSONA PARAMETRI E METODI
     {
         //EREDITA I PARAMETRI DI PERSONA E SI POSSONO AGGIUNGERE ALTRI PARAMETRI DICHIARANDOLI (VALGONO SOLO SU STUDENTI)
+        /// <summary>
+        /// anno assunzione inserito
+        /// </summary>
         public int AnnoAssunzione { get; set; }
 
 
@@ -79,6 +85,16 @@ namespace GestioneLavoratori
             else
             risultato = (Ral * 50) / 100;
             return risultato;
+        }
+
+        /// <summary>
+        /// stipendio mensile netto
+        /// </summary>
+        /// <returns>int stipendio netto</returns>
+        public override int StipendioMensile()
+        {
+            int risultato = base.StipendioMensile() - CalcoloTassa();
+            return risultato/12;
         }
     }
 }

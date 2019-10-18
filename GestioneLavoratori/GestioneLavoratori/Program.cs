@@ -81,8 +81,16 @@ namespace GestioneLavoratori
                         {
                             Console.WriteLine("Inserisci anno assunzione lavoratore dipendente " + (i + 1) + ": ");
                             int annoAssunzioneLD = Int32.Parse(Console.ReadLine());
-                            lvD.AnnoAssunzione = annoAssunzioneLD;
-                            controllo = true;
+                            if(annoAssunzioneLD<DateTime.Now.Year)
+                            { 
+                                lvD.AnnoAssunzione = annoAssunzioneLD;
+                                controllo = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("inserire un anno minore di quello corrente");
+                                controllo = false;
+                            }
                         }
                         catch (Exception ex)
                         {
